@@ -12,11 +12,11 @@
  */
 namespace Sfynx\TemplateBundle\Form\Extension;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
  *  HelpFieldType Extension
@@ -31,20 +31,22 @@ class HelpFormTypeExtension extends AbstractTypeExtension
      * @var array
      */
     protected $options = array();
+
     public function __construct(array $options)
     {
         $this->options = $options;
     }
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['help_inline'] = $options['help_inline'];
         $view->vars['help_block'] = $options['help_block'];
         $view->vars['help_label'] = $options['help_label'];
-        
-        if (!isset($options['help_label_tooltip']['icon']) && !is_null($this->options['tooltip_icon'])) {
+
+        if (!isset($options['help_label_tooltip']['icon']) && !(null === $this->options['tooltip_icon'])) {
             $options['help_label_tooltip']['icon'] = $this->options['tooltip_icon'];
         }
-        if (!isset($options['help_label_tooltip']['placement']) && !is_null($this->options['tooltip_placement'])) {
+        if (!isset($options['help_label_tooltip']['placement']) && !(null === $this->options['tooltip_placement'])) {
             $options['help_label_tooltip']['placement'] = $this->options['tooltip_placement'];
         }
         if (!isset($view->vars['help_label_tooltip_title'])) {
@@ -52,10 +54,10 @@ class HelpFormTypeExtension extends AbstractTypeExtension
         }
         $view->vars['help_label_tooltip_icon'] = $options['help_label_tooltip']['icon'];
         $view->vars['help_label_tooltip_placement'] = $options['help_label_tooltip']['placement'];
-        if (!isset($options['help_label_popover']['icon']) && array_key_exists('popover_icon', $this->options) && !is_null($this->options['popover_icon'])) {
+        if (!isset($options['help_label_popover']['icon']) && array_key_exists('popover_icon', $this->options) && !(null === $this->options['popover_icon'])) {
             $options['help_label_popover']['icon'] = $this->options['popover_icon'];
         }
-        if (!isset($options['help_label_popover']['placement']) && array_key_exists('popover_placement', $this->options) && !is_null($this->options['popover_placement'])) {
+        if (!isset($options['help_label_popover']['placement']) && array_key_exists('popover_placement', $this->options) && !(null === $this->options['popover_placement'])) {
             $options['help_label_popover']['placement'] = $this->options['popover_placement'];
         }
         if (!isset($view->vars['help_label_popover_title'])) {
@@ -71,7 +73,8 @@ class HelpFormTypeExtension extends AbstractTypeExtension
             $view->vars['help_label_popover_icon'] = $options['help_label_popover']['icon'];
         }
     }
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'help_inline' => null,
@@ -90,8 +93,9 @@ class HelpFormTypeExtension extends AbstractTypeExtension
             )
         ));
     }
+
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
     }
 }

@@ -12,11 +12,12 @@
  */
 namespace Sfynx\TemplateBundle\Form\Extension;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
- 
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+
 /**
  * Legend Extension
  *
@@ -32,6 +33,7 @@ class LegendFormTypeExtension extends AbstractTypeExtension
     private $render_required_asterisk;
     private $render_optional_text;
     private $errors_on_forms;
+
     public function __construct(array $options)
     {
         $this->render_fieldset = $options['render_fieldset'];
@@ -41,6 +43,7 @@ class LegendFormTypeExtension extends AbstractTypeExtension
         $this->render_optional_text = $options['render_optional_text'];
         $this->errors_on_forms = $options['errors_on_forms'];
     }
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['render_fieldset'] = $options['render_fieldset'];
@@ -51,7 +54,8 @@ class LegendFormTypeExtension extends AbstractTypeExtension
         $view->vars['render_optional_text'] = $options['render_optional_text'];
         $view->vars['errors_on_forms'] = $options['errors_on_forms'];
     }
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'render_fieldset' => $this->render_fieldset,
@@ -63,8 +67,9 @@ class LegendFormTypeExtension extends AbstractTypeExtension
             'errors_on_forms' => $this->errors_on_forms,
         ));
     }
+
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
     }
 }

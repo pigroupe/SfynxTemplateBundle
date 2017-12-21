@@ -302,10 +302,10 @@
 
 				return rng;
 			}
-			
+
 			function applyStyleToList(node, bookmark, wrapElm, newWrappers, process){
 				var nodes = [], listIndex = -1, list, startIndex = -1, endIndex = -1, currentWrapElm;
-				
+
 				// find the index of the first child list.
 				each(node.childNodes, function(n, index) {
 					if (n.nodeName === "UL" || n.nodeName === "OL") {
@@ -314,7 +314,7 @@
 						return false;
 					}
 				});
-				
+
 				// get the index of the bookmarks
 				each(node.childNodes, function(n, index) {
 					if (n.nodeName === "SPAN" && dom.getAttrib(n, "data-mce-type") == "bookmark") {
@@ -325,7 +325,7 @@
 						}
 					}
 				});
-				
+
 				// if the selection spans across an embedded list, or there isn't an embedded list - handle processing normally
 				if (listIndex <= 0 || (startIndex < listIndex && endIndex > listIndex)) {
 					each(tinymce.grep(node.childNodes), process);
@@ -336,7 +336,7 @@
 					// create a list of the nodes on the same side of the list as the selection
 					each(tinymce.grep(node.childNodes), function(n, index) {
 						if ((startIndex < listIndex && index < listIndex) || (startIndex > listIndex && index > listIndex)) {
-							nodes.push(n); 
+							nodes.push(n);
 							n.parentNode.removeChild(n);
 						}
 					});
@@ -347,7 +347,7 @@
 					} else if (startIndex > listIndex) {
 						node.insertBefore(currentWrapElm, list.nextSibling);
 					}
-					
+
 					// add the new nodes to the list.
 					newWrappers.push(currentWrapElm);
 
@@ -453,7 +453,7 @@
 						} else {
 							// Start a new wrapper for possible children
 							currentWrapElm = 0;
-							
+
 							each(tinymce.grep(node.childNodes), process);
 
 							if (hasContentEditableState) {
@@ -494,7 +494,7 @@
 				}
 
 				// Cleanup
-				
+
 				each(newWrappers, function(node) {
 					var childCount;
 
@@ -676,7 +676,7 @@
 
 				// Process the children
 				if (format.deep) {
-					if (children.length) {					
+					if (children.length) {
 						for (i = 0, l = children.length; i < l; i++)
 							process(children[i]);
 
@@ -1119,7 +1119,7 @@
 		defaultFormats();
 		addKeyboardShortcuts();
 
-		// Private functions
+		// protected functions
 
 		/**
 		 * Checks if the specified nodes name matches the format inline/block or selector.
@@ -1964,7 +1964,7 @@
 
 				return true;
 			};
-			
+
 			// Returns any parent caret container element
 			function getParentCaretContainer(node) {
 				while (node) {
@@ -2026,7 +2026,7 @@
 					selection.setRng(rng);
 				}
 			};
-			
+
 			// Applies formatting to the caret postion
 			function applyCaretFormat() {
 				var rng, caretContainer, textNode, offset, bookmark, container, text;

@@ -16,9 +16,8 @@ use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
  *  LabelField Extension
@@ -33,21 +32,21 @@ class LabelFieldTypeExtension extends AbstractTypeExtension
     {
         $builder->setAttribute('label_attr', $options['label_attr']);
     }
-    
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['label_attr'] = $form->getConfig()->getAttribute('label_attr');
     }
-    
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'label_attr' => array(),
+            'label_attr' => array()
         ));
     }
-    
+
     public function getExtendedType()
     {
-        return 'field';
+        return FormType::class;
     }
 }

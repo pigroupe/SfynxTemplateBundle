@@ -12,11 +12,12 @@
  */
 namespace Sfynx\TemplateBundle\Form\Extension;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Exception\CreationException;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
  * AddinfoField Extension
@@ -28,10 +29,12 @@ use Symfony\Component\Form\Exception\CreationException;
 class WidgetFormTypeExtension extends AbstractTypeExtension
 {
     protected $options;
+
     public function __construct(array $options)
     {
         $this->options = $options;
     }
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         if (!is_array($options['widget_addon'])) {
@@ -62,7 +65,8 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
         $view->vars['widget_controls_attr'] = $options['widget_controls_attr'];
         $view->vars['widget_checkbox_label'] = $options['widget_checkbox_label'];
     }
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -76,27 +80,27 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
                 'widget_prefix' => null,
                 'widget_suffix' => null,
                 'widget_type' => '',
-                'widget_items_attr' => array(),
-                'widget_control_group_attr' => array(),
-                'widget_controls_attr' => array(),
+                'widget_items_attr' => [],
+                'widget_control_group_attr' => [],
+                'widget_controls_attr' => [],
                 'widget_checkbox_label' => $this->options['checkbox_label'],
             )
         );
-        $resolver->setAllowedValues(array(
-                'widget_type' => array(
-                    'inline',
-                    '',
-                ),
-                'widget_checkbox_label' => array(
-                    'label',
-                    'widget',
-                    'both',
-                )
-            )
-        );
+        $resolver
+            ->setAllowedValues('widget_type', [
+                'inline',
+                '',
+            ])
+            ->setAllowedValues('widget_checkbox_label', [
+                'label',
+                'widget',
+                'both',
+            ])
+        ;
     }
+
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
     }
 }

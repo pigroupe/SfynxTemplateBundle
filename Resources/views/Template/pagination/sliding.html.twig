@@ -2,7 +2,7 @@
 
 {# IMPORTANT !!!! for ESI management #}
 {% set route = app.request.get('_route') %}
-{#  {% set query = getService('sfynx.tool.route.factory').getLocaleRoute(app.session.locale, {'result':'match'}) %} #}
+{#  {% set query = getService('sfynx.tool.route.factory').generateLocale(app.session.locale, {'result':'match'}) %} #}
 {% set query = query|merge({'_route': null, 'method': null, 'serviceName': null, 'id': null, 'lang': null,'params': null, 'server': null, 'key':null, 'sfynx-browser': null, 'sfynx-screen': null, 'sfynx-layout': null, }) %}
 
 <div class="pagination bkgrey clearfix row">
