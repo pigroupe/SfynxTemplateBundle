@@ -12,11 +12,11 @@
 		 	
  		<ul class="slides">
 	 		{% for slide in slides.boucle1 %}
-			     {% if loop.index0 is divisibleby(4) %}
+			     {% if loop.index0 is divisible by(4) %}
 			     <li>
 			     {% endif %}
 		      		{{ slide|raw }}
-			     {% if (loop.index0+1) is divisibleby(4) %}
+			     {% if (loop.index0+1) is divisible by(4) %}
 			     </li>
 			     {% endif %}
 			 {% endfor %}
