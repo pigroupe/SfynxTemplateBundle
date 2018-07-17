@@ -180,14 +180,8 @@ class SfynxTemplateExtension extends Extension{
             if (isset($config['theme']['front']['pc'])) {
                 $container->setParameter('sfynx.template.theme.layout.front.pc', $config['theme']['front']['pc']); // "SfynxSmoothnessBundle::Layout\\Pc\\"
             }
-            if (isset($config['theme']['front']['pc_path'])) {
-                $container->setParameter('sfynx.template.theme.layout.front.pc.path', $config['theme']['front']['pc_path']); // "@SfynxSmoothnessBundle/Resources/views/Layout/Pc/"
-            }
             if (isset($config['theme']['front']['mobile'])) {
                 $container->setParameter('sfynx.template.theme.layout.front.mobile', $config['theme']['front']['mobile']);  // "SfynxSmoothnessBundle::Layout\\Mobile\\"
-            }
-            if (isset($config['theme']['front']['mobile_path'])) {
-                $container->setParameter('sfynx.template.theme.layout.front.mobile.path', $config['theme']['front']['mobile_path']);  // "@SfynxSmoothnessBundle/Resources/views/Layout/Mobile/"
             }
             if (isset($config['theme']['front']['css'])) {
                 $container->setParameter('sfynx.template.theme.layout.front.css', $config['theme']['front']['css']);  // 'bundles/sfynxsmoothness/front/screen.css'
